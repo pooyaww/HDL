@@ -15,7 +15,7 @@ counter	counter/verilog/updown_counter_tb.v	/^wire [3:0] counter;$/;"	n
 counter_up_down	counter/verilog/updown_counter.v	/^reg [3:0] counter_up_down$/;"	r
 reset	counter/verilog/updown_counter.v	/^input clk, reset, up_down;$/;"	p
 reset	counter/verilog/updown_counter_tb.v	/^reg clk, reset, up_down;$/;"	r
-shift_register	shift_register.vhd	/^entity shift_register is$/;"	e
+shift_register	shift_register/VHDL/shift_register.vhd	/^entity shift_register is$/;"	e
 tb_counter	counter/vhdl/updown_counter_tb.vhd	/^entity tb_counter is$/;"	e
 up_down	counter/verilog/updown_counter.v	/^input clk, reset, up_down;$/;"	p
 up_down	counter/verilog/updown_counter_tb.v	/^reg clk, reset, up_down;$/;"	r
