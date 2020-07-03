@@ -57,3 +57,11 @@ begin
         end if;
     end process p_sreg;
 end rtl_variable;
+
+architecture behavioral of shif_register is
+    type t_sreg is array(0 to 3) of std_logic_vector(1 downto 0);
+    signal r_data : t_sreg;
+begin
+    o_data <= r_data(r_data'length-1); -- r_data(index). Index of an array = length of array - 1.
+
+end behavioral
