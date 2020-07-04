@@ -73,7 +73,6 @@ begin
                 for idx in 1 to r_data'length-1 loop
                 -- BODY --
                 end loop;
-
         end if;
     end process p_sreg;
 end behavioral;
