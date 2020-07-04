@@ -64,4 +64,16 @@ architecture behavioral of shif_register is
 begin
     o_data <= r_data(r_data'length-1); -- r_data(index). Index of an array = length of array - 1.
 
-end behavioral
+    p_sreg: process(i_clk, i_rstb)
+    begin
+        if (i_rstb = '0') then
+            r_data <= (others=>(others=>'0'))
+            elsif (rising_edge(i_clk)) then
+                r_data(0) <= i_data;
+                for idx in 1 to r_data'length-1 loop
+                -- BODY --
+                end loop;
+
+        end if;
+    end process p_sreg;
+end behavioral;
