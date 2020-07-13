@@ -19,6 +19,7 @@ architecture rtl_signal of shift_register is
     signal r3_data : std_logic_vector(1 downto 0);
 
 begin
+    -- o_data contains the data which is shifted out of the register, here it is the last value in the third FF.
     o_data <= r3_data;
     p_sreg : process(i_clk, i_rstb)
             begin
@@ -62,17 +63,35 @@ architecture behavioral of shif_register is
     type t_sreg is array(0 to 3) of std_logic_vector(1 downto 0);
     signal r_data : t_sreg;
 begin
-    o_data <= r_data(r_data'length-1); -- r_data(index). Index of an array = length of array - 1.
+    -- 1) The last cell of the register is sent out to the output signal
+    -- It should happen before a new shift to avoid rewriting the cell without reading it.
+    o_data <= r_data(r_data'length-1); -- r_data(index). Index of an array = length of array - 1, as array is inedxed from zero.
 
     p_sreg: process(i_clk, i_rstb)
     begin
         if (i_rstb = '0') then
             r_data <= (others=>(others=>'0'))
             elsif (rising_edge(i_clk)) then
-                r_data(0) <= i_data;
+                r_data(0) <= i_data; -- 2) Put the input data into the first FF (first cell of the register), then shift the others
                 for idx in 1 to r_data'length-1 loop
-                -- BODY --
+                    r_data(i) <= r_data(idx-1) -- 3) Shifting
                 end loop;
         end if;
     end process p_sreg;
 end behavioral;
+
+architecture concat_behavioral of shift_register is
+    type t_sreg is array(0 to 3) of std_logic_vector(1 downto 0);
+    signal r_data : t_sreg;
+begin
+    o_data <= r_data(r_data'length-1); -- send last cell to output
+    p_sreg : process(i_clk, i_rstb)
+    begin
+        if (i_rstb = '0') then
+            r_data <= (others => (others => '0'));
+        elsif (rising_edge(i_clk)) then
+            r_data <= i_data & r_data(0 to r_data'length - 2);  -- Concatenating new input data on the begining of the register and discarding the last cell.
+        end if;
+
+    end process p_sreg;
+end concat_behavioral;
