@@ -12,11 +12,12 @@ entity mux4 is
        );
 end mux4;
 
-architecture rtl of mux4 is
+architecture sequential of mux4 is
     -- Nothing to declare
 begin
     p_mux : process(a1, a2, a3, a4, sel)
     begin
+        -- Both Statements and predicates can be different
         case sel is
             when "00"   => b <= a1;
             when "01"   => b <= a2;
@@ -24,4 +25,25 @@ begin
             with others => b <= a4;
         end case;
     end process p_mux;
-end rtl;
+end sequential;
+
+architecture concurrent of mux4 is
+    -- Nothing to declare
+begin
+    -- Statement is fixed
+    with sel select
+        b <= a1 when "00",
+             a2 when "01",
+             a3 when "10",
+             a4 when others;
+end concurrent;
+
+architecture concurrent_2 of mux4 is
+    -- Nothing to declare
+begin
+    b <= a1 when (sel = "00") else
+         a2 when (sel = "01") else
+         a3 when (sel = "10") else
+         a4;
+end concurrent_2;
+
