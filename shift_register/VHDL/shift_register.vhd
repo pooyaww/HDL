@@ -12,6 +12,9 @@ end shift_register;
 
 -- Each register is declared as a signal variable
 architecture rtl_signal of shift_register is
+    -- remeber that signals used inside process are usualy synthesized to flip-flops so they need a clock cycle for assignment
+    -- but signals used outside of sequential region (out od process) behaving like a wire and immediately assign the value;
+    -- Variables inside the process behave like signals outside of a process
 
     signal r0_data : std_logic_vector(1 downto 0);
     signal r1_data : std_logic_vector(1 downto 0);
