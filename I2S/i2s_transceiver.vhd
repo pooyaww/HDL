@@ -19,7 +19,12 @@ entity i2s_transmitter is
 end i2s_transmitter;
 
 architecture logic of i2s_transmitter is
-
+    signal sclk_int       : std_logic := '0';                      -- internal serial clock  signal
+    signal ws_in          : std_logic := '0';                      -- internal word select signal
+    signal l_data_rx_int  : std_logic_vector(d_width-1 downto 0);  -- internal left channel rx data buffer
+    signal r_data_rx_int  : std_logic_vector(d_width-1 downto 0);  -- internal right channel rx data buffer
+    signal l_data_tx_int  : std_logic_vector(d_width-1 downto 0);  -- internal left channel tx data buffer
+    signal r_data_tx_int  : std_logic_vector(d_width-1 downto 0);  -- internal right channel tx data buffer
 begin
 
 end logic;
